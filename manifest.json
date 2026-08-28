@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "gistpeek",
+  "version": "0.1.0",
+  "description": "See what an on-device AI takes away from the page you are looking at, and what makes the page hard to cite.",
+  "minimum_chrome_version": "138",
+  "permissions": ["sidePanel", "activeTab", "scripting", "storage"],
+  "optional_host_permissions": ["https://*/*", "http://*/*"],
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "side_panel": {
+    "default_path": "src/sidepanel.html"
+  },
+  "action": {
+    "default_title": "gistpeek: read this page with the on-device model",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": { "default": "Alt+Shift+G" },
+      "description": "Open the gistpeek panel"
+    }
+  }
+}

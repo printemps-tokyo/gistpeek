@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    // The extension runs in a browser: node's globals have no business being
+    // visible to it. They are only in the base config for the test tree.
+    "types": []
+  },
+  "include": ["src/**/*.ts"]
+}

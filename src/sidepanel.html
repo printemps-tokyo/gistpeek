@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>gistpeek</title>
+    <link rel="stylesheet" href="sidepanel.css" />
+  </head>
+  <body>
+    <header class="bar">
+      <h1>gistpeek</h1>
+      <span id="model-state" class="pill pill--unknown">checking the model</span>
+    </header>
+
+    <main>
+      <section class="card">
+        <p id="page-line" class="muted">Open the page you want to read, then run it.</p>
+        <label class="field">
+          <span>The point you want a reader to leave with (optional)</span>
+          <textarea
+            id="target"
+            rows="2"
+            placeholder="e.g. Fixed-layout EPUB needs a viewport on every page"
+          ></textarea>
+        </label>
+        <div class="row">
+          <button id="run" class="primary">Read this page</button>
+          <button id="stop" class="ghost" hidden>Stop</button>
+        </div>
+        <p id="status" class="status" role="status"></p>
+      </section>
+
+      <section id="summary-card" class="card" hidden>
+        <h2>What the model takes away</h2>
+        <div id="summary" class="prose"></div>
+        <p id="takeaway" class="takeaway" hidden></p>
+        <div id="target-verdict" class="verdict" hidden></div>
+        <div id="lists" class="lists"></div>
+      </section>
+
+      <section id="checks-card" class="card" hidden>
+        <h2>Checks <span id="score" class="muted"></span></h2>
+        <ul id="checks" class="checks"></ul>
+      </section>
+
+      <section id="policy-card" class="card">
+        <h2>AI crawler policy</h2>
+        <p class="muted">
+          Reads this site's robots.txt and llms.txt. Needs one-time access to the
+          origin, and is the only thing here that touches the network.
+        </p>
+        <button id="policy" class="ghost">Check this site</button>
+        <div id="policy-result"></div>
+      </section>
+    </main>
+
+    <footer class="bar">
+      <button id="copy" class="ghost" disabled>Copy Markdown</button>
+      <button id="download" class="ghost" disabled>Save JSON</button>
+      <span id="version" class="muted"></span>
+    </footer>
+
+    <script type="module" src="sidepanel.js"></script>
+  </body>
+</html>

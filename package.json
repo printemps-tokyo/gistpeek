@@ -1,0 +1,20 @@
+{
+  "name": "gistpeek",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Chrome extension: see what an on-device AI takes away from the page you are looking at, and what makes it hard to cite.",
+  "license": "MIT",
+  "author": "printemps.tokyo <develop@printemps.tokyo>",
+  "repository": "https://github.com/printemps-tokyo/gistpeek",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/build.mjs --tests && node --test dist-test/test/",
+    "check": "npm run typecheck && npm test && npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^24",
+    "typescript": "^7"
+  }
+}

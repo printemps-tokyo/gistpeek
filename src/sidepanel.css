@@ -1,0 +1,289 @@
+/* One column, dense, and readable at the width of a docked panel.
+   The panel follows the browser theme rather than picking one. */
+
+:root {
+  color-scheme: light dark;
+  --bg: #ffffff;
+  --surface: #f6f6f7;
+  --border: #dcdce0;
+  --text: #16161a;
+  --muted: #5f5f6b;
+  --accent: #1a56db;
+  --pass: #167a3c;
+  --warn: #8a5a00;
+  --fail: #b3261e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #16161a;
+    --surface: #1e1e24;
+    --border: #33333d;
+    --text: #ecedee;
+    --muted: #9b9ba6;
+    --accent: #7aa2f7;
+    --pass: #4ec97a;
+    --warn: #e0a458;
+    --fail: #f27272;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font: 13px/1.55 system-ui, -apple-system, "Segoe UI", "Hiragino Sans", "Noto Sans JP", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+footer.bar {
+  border-bottom: none;
+  border-top: 1px solid var(--border);
+  position: sticky;
+  top: auto;
+  bottom: 0;
+  margin-top: auto;
+}
+
+h1 {
+  font-size: 14px;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+h2 {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin: 0 0 8px;
+}
+
+main {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  background: var(--bg);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.field {
+  display: block;
+  margin: 10px 0;
+}
+
+.field span {
+  display: block;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+textarea,
+button {
+  font: inherit;
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  border-radius: 6px;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+.pill {
+  margin-left: auto;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.pill--ready {
+  color: var(--pass);
+  border-color: currentColor;
+}
+
+.pill--missing {
+  color: var(--fail);
+  border-color: currentColor;
+}
+
+.status {
+  margin: 8px 0 0;
+  color: var(--muted);
+  min-height: 1.5em;
+}
+
+.status[data-kind="error"] {
+  color: var(--fail);
+}
+
+.prose {
+  white-space: pre-wrap;
+}
+
+.takeaway {
+  border-left: 3px solid var(--accent);
+  padding-left: 10px;
+  margin: 12px 0;
+  font-weight: 600;
+}
+
+.verdict {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin: 10px 0;
+}
+
+.verdict[data-verdict="kept"] {
+  border-color: var(--pass);
+}
+
+.verdict[data-verdict="partial"] {
+  border-color: var(--warn);
+}
+
+.verdict[data-verdict="missing"] {
+  border-color: var(--fail);
+}
+
+.lists h3 {
+  font-size: 12px;
+  margin: 12px 0 4px;
+}
+
+.lists ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.checks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.checks li {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 8px;
+}
+
+.tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 4px;
+  border-radius: 4px;
+  border: 1px solid currentColor;
+  height: fit-content;
+  text-align: center;
+}
+
+.tag[data-status="pass"] {
+  color: var(--pass);
+}
+
+.tag[data-status="warn"] {
+  color: var(--warn);
+}
+
+.tag[data-status="fail"] {
+  color: var(--fail);
+}
+
+.tag[data-status="info"] {
+  color: var(--muted);
+}
+
+.check-title {
+  font-weight: 600;
+}
+
+.check-fix {
+  color: var(--muted);
+}
+
+.agents {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.agents li {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.agents .blocked {
+  color: var(--fail);
+}
+
+.agents .allowed {
+  color: var(--pass);
+}
