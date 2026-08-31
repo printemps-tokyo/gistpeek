@@ -5,7 +5,7 @@
 // touch (the manifest, the panel markup and the icons). `--tests` compiles the
 // test tree instead, which is the only reason a second output directory exists.
 
-import { cp, mkdir, rm } from "node:fs/promises";
+import { cp, mkdir, rm, stat } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -23,6 +23,18 @@ const tsc = spawnSync(
   { cwd: root, stdio: "inherit" },
 );
 if (tsc.status !== 0) process.exit(tsc.status ?? 1);
+
+// A compile that emits nothing exits 0, and the failure then surfaces
+// somewhere unrelated -- as a missing module, in another tool, on another
+// machine. Check the output is there while we still know why it would not be.
+const expected = join(root, outDir, testsOnly ? "test" : "src");
+try {
+  const emitted = await stat(expected);
+  if (!emitted.isDirectory()) throw new Error("not a directory");
+} catch {
+  console.error(`gistpeek: tsc reported success but ${expected} is not there`);
+  process.exit(1);
+}
 
 if (!testsOnly) {
   await mkdir(join(root, outDir, "src"), { recursive: true });
