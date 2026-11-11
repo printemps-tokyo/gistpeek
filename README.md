@@ -76,13 +76,28 @@ plenty of machines, not an error state.
 
 ## Install
 
+There is no store listing. Either take a release build or build it yourself,
+then load it unpacked.
+
+From a release: download `gistpeek-<version>.zip` and its `.sha256` from the
+[Releases](https://github.com/printemps-tokyo/gistpeek/releases) page, then
+
+```bash
+shasum -a 256 -c gistpeek-<version>.zip.sha256
+unzip gistpeek-<version>.zip -d gistpeek
+```
+
+From source:
+
 ```bash
 npm install
 npm run build
 ```
 
 Then open `chrome://extensions`, turn on Developer mode, choose Load unpacked
-and select the `dist/` directory. Pin the icon; clicking it opens the panel, as
+and select the unzipped `gistpeek/` directory (or `dist/` when built from
+source). Chrome does not update an unpacked extension: to upgrade, replace the
+directory's contents and press the reload button on the extension's card. Pin the icon; clicking it opens the panel, as
 does Alt+Shift+G.
 
 ## Use
