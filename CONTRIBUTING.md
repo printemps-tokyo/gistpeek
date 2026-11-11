@@ -5,7 +5,7 @@ Thanks for your interest in contributing to gistpeek.
 ## Development
 
 1. Fork / clone the repository
-2. Install Node 20 or later and run `npm install`
+2. Install Node 22 or later and run `npm install`
 3. Create a branch: `git switch -c feat/your-change`
 4. Verify locally:
    ```bash
