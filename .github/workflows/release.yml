@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      # A release is built only from code whose tests pass.
+      - run: npm test
+      - run: npm run build
+      # dist/ is the unpacked extension: unzip and choose it in "Load unpacked".
+      - name: Package
+        run: |
+          name="gistpeek-${GITHUB_REF_NAME}.zip"
+          ( cd dist && zip -r -X "../$name" . )
+          shasum -a 256 "$name" > "$name.sha256"
+      - name: Create GitHub Release
+        run: gh release create "${GITHUB_REF_NAME}" --generate-notes gistpeek-*.zip gistpeek-*.zip.sha256
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
