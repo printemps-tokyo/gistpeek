@@ -37,6 +37,13 @@ Thanks for your interest in contributing to gistpeek.
 
 `npm test` compiles the tree and runs `node --test` over the parts that are
 pure: the checks, the robots.txt parser, the report writers and the model-output
-normalizer. Add tests there. The injected page reader touches the DOM and is not
-covered by that suite -- changes to it need a note in the PR saying which real
-page you ran it against and what came back.
+normalizer. Add tests there.
+
+`npm run e2e` loads the built `dist/` into Chromium: the side panel has to load
+and explain a page it cannot read, and the injected page reader has to read a
+local test article (it runs in the page directly, since activeTab is only
+granted by a click on the toolbar button). It needs Playwright's Chromium once
+(`npx playwright install chromium`), or another Chromium build named by
+`E2E_CHROMIUM`; CI runs it on every push. That article is one page, so changes
+to the page reader still need a note in the PR saying which real pages you ran
+it against and what came back.
