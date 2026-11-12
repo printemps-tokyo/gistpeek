@@ -7,6 +7,11 @@ updates:
     groups:
       all:
         patterns: ["*"]
+    ignore:
+      # @types/node stays on the oldest Node line the tool supports, so a
+      # newer Node API fails the typecheck instead of failing at run time.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
